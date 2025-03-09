@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, ScrollView, SafeAreaView } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -46,66 +46,68 @@ export default function Home() {
    };
 
    return (
-      <View className="flex-1 bg-white">
-         {/* Header */}
-         <View className="pt-12 pb-4 bg-indigo-600">
-            <Text className="text-3xl font-bold text-white text-center mt-10">My Tasks</Text>
-         </View>
-
-         {/* Main Content */}
-         <View className="flex-1 px-4 py-6">
-            {/* Input Area */}
-            <View className="flex-row items-center gap-3 mb-6">
-               <TextInput
-                  placeholder="Add your task"
-                  placeholderTextColor="#9CA3AF"
-                  className="flex-1 border border-gray-300 rounded-lg p-4 bg-white text-gray-800 text-base"
-                  value={task}
-                  onChangeText={setTask}
-               />
-               <TouchableOpacity
-                  onPress={handleAddTask}
-                  className="bg-indigo-600 p-4 rounded-lg"
-                  activeOpacity={0.7}
-               >
-                  <Ionicons name="add" size={24} color="white" />
-               </TouchableOpacity>
+      <SafeAreaView className="flex-1 bg-white">
+         <View className="flex-1 bg-white">
+            {/* Header */}
+            <View className="py-4 bg-indigo-600">
+               <Text className="text-3xl font-bold text-white text-center">My Tasks</Text>
             </View>
 
-            {/* Task List */}
-            <ScrollView
-               className="flex-1"
-               showsVerticalScrollIndicator={false}
-               contentContainerClassName="pb-6"
-            >
-               {tasks.length === 0 ? (
-                  <View className="items-center justify-center py-10">
-                     <Ionicons name="list-outline" size={64} color="#D1D5DB" />
-                     <Text className="text-gray-400 text-lg mt-4">No tasks yet. Add one!</Text>
-                  </View>
-               ) : (
-                  <View className="space-y-3 gap-4">
-                     {tasks.map((task, index) => (
-                        <View
-                           key={index}
-                           className="flex-row items-center bg-gray-50 p-4 rounded-lg shadow-xs border border-gray-200"
-                        >
-                           <View className="flex-1">
-                              <Text className="text-base text-gray-800">{task}</Text>
-                           </View>
-                           <TouchableOpacity
-                              onPress={() => handleDeleteTask(index)}
-                              className="bg-red-500 p-2 rounded-full"
-                              activeOpacity={0.7}
+            {/* Main Content */}
+            <View className="flex-1 px-4 py-6">
+               {/* Input Area */}
+               <View className="flex-row items-center gap-3 mb-6">
+                  <TextInput
+                     placeholder="Add your task"
+                     placeholderTextColor="#9CA3AF"
+                     className="flex-1 border border-gray-300 rounded-lg p-4 bg-white text-gray-800 text-base"
+                     value={task}
+                     onChangeText={setTask}
+                  />
+                  <TouchableOpacity
+                     onPress={handleAddTask}
+                     className="bg-indigo-600 p-4 rounded-lg"
+                     activeOpacity={0.7}
+                  >
+                     <Ionicons name="add" size={24} color="white" />
+                  </TouchableOpacity>
+               </View>
+
+               {/* Task List */}
+               <ScrollView
+                  className="flex-1"
+                  showsVerticalScrollIndicator={false}
+                  contentContainerClassName="pb-6"
+               >
+                  {tasks.length === 0 ? (
+                     <View className="items-center justify-center py-10">
+                        <Ionicons name="list-outline" size={64} color="#D1D5DB" />
+                        <Text className="text-gray-400 text-lg mt-4">No tasks yet. Add one!</Text>
+                     </View>
+                  ) : (
+                     <View className="space-y-3 gap-4">
+                        {tasks.map((task, index) => (
+                           <View
+                              key={index}
+                              className="flex-row items-center bg-gray-50 p-4 rounded-lg shadow-xs border border-gray-200"
                            >
-                              <Ionicons name="trash-outline" size={18} color="white" />
-                           </TouchableOpacity>
-                        </View>
-                     ))}
-                  </View>
-               )}
-            </ScrollView>
+                              <View className="flex-1">
+                                 <Text className="text-base text-gray-800">{task}</Text>
+                              </View>
+                              <TouchableOpacity
+                                 onPress={() => handleDeleteTask(index)}
+                                 className="bg-red-500 p-2 rounded-full"
+                                 activeOpacity={0.7}
+                              >
+                                 <Ionicons name="trash-outline" size={18} color="white" />
+                              </TouchableOpacity>
+                           </View>
+                        ))}
+                     </View>
+                  )}
+               </ScrollView>
+            </View>
          </View>
-      </View>
+      </SafeAreaView>
    );
 }
