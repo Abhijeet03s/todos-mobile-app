@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, ScrollView, StatusBar } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -47,17 +47,15 @@ export default function Home() {
 
    return (
       <View className="flex-1 bg-white">
-         <StatusBar barStyle="light-content" />
-
          {/* Header */}
          <View className="pt-12 pb-4 bg-indigo-600">
-            <Text className="text-3xl font-bold text-white text-center">My Tasks</Text>
+            <Text className="text-3xl font-bold text-white text-center mt-10">My Tasks</Text>
          </View>
 
          {/* Main Content */}
          <View className="flex-1 px-4 py-6">
             {/* Input Area */}
-            <View className="flex-row items-center space-x-2 mb-6">
+            <View className="flex-row items-center gap-3 mb-6">
                <TextInput
                   placeholder="Add your task"
                   placeholderTextColor="#9CA3AF"
@@ -67,7 +65,7 @@ export default function Home() {
                />
                <TouchableOpacity
                   onPress={handleAddTask}
-                  className="bg-indigo-500 p-4 rounded-lg"
+                  className="bg-indigo-600 p-4 rounded-lg"
                   activeOpacity={0.7}
                >
                   <Ionicons name="add" size={24} color="white" />
@@ -86,11 +84,11 @@ export default function Home() {
                      <Text className="text-gray-400 text-lg mt-4">No tasks yet. Add one!</Text>
                   </View>
                ) : (
-                  <View className="space-y-3">
+                  <View className="space-y-3 gap-4">
                      {tasks.map((task, index) => (
                         <View
                            key={index}
-                           className="flex-row items-center bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200"
+                           className="flex-row items-center bg-gray-50 p-4 rounded-lg shadow-xs border border-gray-200"
                         >
                            <View className="flex-1">
                               <Text className="text-base text-gray-800">{task}</Text>
