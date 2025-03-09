@@ -45,6 +45,10 @@ export default function Home() {
       setTasks(tasks.filter((_, i) => i !== index));
    };
 
+   const handleClearAllTasks = () => {
+      setTasks([]);
+   };
+
    return (
       <SafeAreaView className="flex-1 bg-white">
          <View className="flex-1 bg-white">
@@ -70,6 +74,18 @@ export default function Home() {
                      activeOpacity={0.7}
                   >
                      <Ionicons name="add" size={24} color="white" />
+                  </TouchableOpacity>
+               </View>
+
+               {/* Clear All Tasks */}
+               <View className="flex-row items-center justify-end gap-3 mb-6">
+                  <TouchableOpacity
+                     onPress={handleClearAllTasks}
+                     className="bg-red-500 p-2 px-4 rounded-lg flex-row items-center gap-2"
+                     activeOpacity={0.7}
+                  >
+                     <Ionicons name="trash-outline" size={18} color="white" />
+                     <Text className="text-white font-medium">Clear All</Text>
                   </TouchableOpacity>
                </View>
 
