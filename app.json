@@ -47,16 +47,24 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/notification-icon.png",
+          "icon": "./assets/images/icon.png",
           "color": "#ffffff",
           "sounds": [
-            "./assets/notification-sound.wav"
+            "./assets/notification_sound.wav"
           ]
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d52518db-5251-49ca-8398-45a6c4172981"
+      }
     }
   }
 }

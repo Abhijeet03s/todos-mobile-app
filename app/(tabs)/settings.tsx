@@ -4,11 +4,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { requestNotificationPermissions } from '../services/NotificationService';
+import { useNavigation } from 'expo-router';
 
 export default function Settings() {
    const { darkMode, toggleDarkMode } = useTheme();
    const [notificationsEnabled, setNotificationsEnabled] = useState(true);
    const [taskCount, setTaskCount] = useState(0);
+   const navigation = useNavigation();
+
+   const loadTaskCount = async () => {
+      try {
+         const storedTasks = await AsyncStorage.getItem('tasks');
+         if (storedTasks !== null) {
+            setTaskCount(JSON.parse(storedTasks).length);
+         } else {
+            setTaskCount(0);
+         }
+      } catch (error) {
+         console.error('Error loading task count:', error);
+      }
+   };
 
    useEffect(() => {
       // Load user preferences
@@ -20,17 +35,22 @@ export default function Settings() {
                setNotificationsEnabled(JSON.parse(storedNotifications));
             }
 
-            // Get task count for stats
-            const storedTasks = await AsyncStorage.getItem('tasks');
-            if (storedTasks !== null) {
-               setTaskCount(JSON.parse(storedTasks).length);
-            }
+            // Load task count
+            await loadTaskCount();
          } catch (error) {
             console.error('Error loading preferences:', error);
          }
       };
 
       loadPreferences();
+
+      // Listener for when the component comes into focus
+      const unsubscribe = navigation.addListener('focus', () => {
+         loadTaskCount();
+      });
+
+      // Clean up the listener when the component unmounts
+      return unsubscribe;
    }, []);
 
    const handleToggleDarkMode = async (value: boolean) => {
