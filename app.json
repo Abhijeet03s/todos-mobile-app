@@ -10,14 +10,22 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.todosapp"
+      "bundleIdentifier": "com.yourcompany.todosapp",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yourcompany.todosapp"
+      "package": "com.yourcompany.todosapp",
+      "permissions": [
+        "NOTIFICATIONS"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -35,7 +43,17 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./assets/notification-sound.wav"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
